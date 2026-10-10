@@ -6,12 +6,17 @@ import { colors, spacing } from "../theme";
 
 // TODO (Ejercicio 01, paso 4): guarda aquí un snapshot con Dimensions.get("window") a nivel de archivo.
 // Es la trampa de la slide 8: se toma UNA vez y no cambia al rotar. Lo vas a comparar con el valor en vivo.
-const SNAPSHOT = { width: 0, height: 0 };
+// const SNAPSHOT = { width: 0, height: 0 };
+const SNAPSHOT = Dimensions.get("window");
 
 export default function DimensionsScreen() {
   // TODO (Ejercicio 01, paso 1): obtén window y screen con Dimensions.get(...)
-  const window = { width: 0, height: 0 };
-  const screen = { width: 0, height: 0 };
+  // const window = { 
+  //   width: Dimensions.get("window").width, 
+  //   height: Dimensions.get("window").height 
+  // };
+  const window = Dimensions.get("window");
+  const screen = Dimensions.get("screen");
   const live = useWindowDimensions(); // referencia en vivo para comparar (ejercicio 02)
 
   return (
@@ -29,10 +34,10 @@ export default function DimensionsScreen() {
       <Section title="Densidad: dp vs píxeles físicos">
         {/* TODO (Ejercicio 01, paso 2 y 3): reemplaza los "?" con PixelRatio.get(), getPixelSizeForLayoutSize(100),
             el ancho físico (window.width en px) y getFontScale() */}
-        <InfoRow label="PixelRatio.get()" value="?" hint="px físicos por cada dp" />
-        <InfoRow label="100 dp en píxeles" value="? px" hint="getPixelSizeForLayoutSize(100)" />
-        <InfoRow label="Ancho físico" value="? px" hint="window.width × PixelRatio" />
-        <InfoRow label="PixelRatio.getFontScale()" value="?" hint="Escala de fuente del usuario: respétala" />
+        <InfoRow label="PixelRatio.get()" value={PixelRatio.get()} hint="px físicos por cada dp" />
+        <InfoRow label="100 dp en píxeles" value={`${PixelRatio.getPixelSizeForLayoutSize(100)} px`} hint="getPixelSizeForLayoutSize(100)" />
+        <InfoRow label="Ancho físico" value={`${PixelRatio.getPixelSizeForLayoutSize(window.width)} px`} hint="window.width × PixelRatio" />
+        <InfoRow label="PixelRatio.getFontScale()" value={PixelRatio.getFontScale()} hint="Escala de fuente del usuario: respétala" />
       </Section>
 
       <Section title="La trampa del snapshot">
